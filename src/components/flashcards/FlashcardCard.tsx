@@ -13,24 +13,26 @@ export function FlashcardCard({ card }: Props) {
   return (
     <div
       className="relative w-full cursor-pointer"
-      style={{ perspective: "1200px", height: "280px" }}
+      style={{ perspective: "1200px", WebkitPerspective: "1200px", height: "280px" }}
       onClick={flip}
     >
       <div
         className={cn(
-          "relative w-full h-full transition-transform duration-500",
+          "relative w-full h-full",
           "preserve-3d"
         )}
         style={{
           transformStyle: "preserve-3d",
+          WebkitTransformStyle: "preserve-3d",
           transform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
-          transition: "transform 0.5s cubic-bezier(0.4,0,0.2,1)",
+          WebkitTransform: isFlipped ? "rotateY(180deg)" : "rotateY(0deg)",
+          transition: "transform 0.5s cubic-bezier(0.4,0,0.2,1), -webkit-transform 0.5s cubic-bezier(0.4,0,0.2,1)",
         }}
       >
         {/* Front */}
         <div
-          className="absolute inset-0 rounded-2xl flex flex-col items-center justify-center p-6 backface-hidden"
-          style={{ backfaceVisibility: "hidden" }}
+          className="absolute inset-0 rounded-2xl flex flex-col items-center justify-center p-6"
+          style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden" }}
         >
           <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-gray-800 to-gray-900 border border-emerald-800/40 shadow-2xl" />
           <div className="relative z-10 text-center">
@@ -43,7 +45,7 @@ export function FlashcardCard({ card }: Props) {
         {/* Back */}
         <div
           className="absolute inset-0 rounded-2xl flex flex-col items-center justify-center p-6"
-          style={{ backfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
+          style={{ backfaceVisibility: "hidden", WebkitBackfaceVisibility: "hidden", transform: "rotateY(180deg)" }}
         >
           <div className="absolute inset-0 rounded-2xl bg-gradient-to-br from-emerald-900 to-gray-900 border border-emerald-600/50 shadow-2xl" />
           <div className="relative z-10 text-center">

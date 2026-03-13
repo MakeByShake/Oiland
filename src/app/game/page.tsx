@@ -81,7 +81,7 @@ export default function GameRegisterPage() {
       </div>
 
       {/* Bottom CTA */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-gray-950 via-gray-950/90 to-transparent">
+      <div className="fixed bottom-0 left-0 right-0 z-20 p-4 bg-gradient-to-t from-gray-950 via-gray-950/90 to-transparent">
         <div className="max-w-2xl mx-auto">
           <Button
             onClick={handleStart}
