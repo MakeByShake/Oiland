@@ -24,7 +24,7 @@ export function BonusModal({ open, onClose }: Props) {
 
   return (
     <Dialog open={open} onOpenChange={(v) => !v && onClose()}>
-      <DialogContent className="bg-gray-900 border border-emerald-700 text-white max-w-sm mx-4 text-center">
+      <DialogContent className="bg-gray-900 border border-emerald-700 text-white text-center">
         <div className="flex flex-col items-center gap-6 py-4">
           <div className="w-20 h-20 rounded-full bg-gradient-to-br from-emerald-500 to-green-600 flex items-center justify-center shadow-lg shadow-emerald-900/50">
             <Gift className="w-10 h-10 text-white" />
