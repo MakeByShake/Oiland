@@ -38,8 +38,9 @@ export default function FlashcardsPage() {
       </div>
 
       {/* Content */}
-      <div className="relative z-10 max-w-2xl mx-auto px-4 py-8 space-y-4">
-        <p className="text-gray-400 text-sm mb-6">Пәнді таңдаңыз</p>
+      <div className="relative z-10 max-w-2xl mx-auto px-4 py-8">
+        <p className="text-gray-400 text-sm mb-5">Пәнді таңдаңыз</p>
+        <div className="flex flex-col gap-4">
         {subjects.map((subject) => {
           const Icon = subjectIcons[subject.id] ?? BookOpen;
           const colors = subjectColors[subject.id] ?? subjectColors.informatika;
@@ -68,6 +69,7 @@ export default function FlashcardsPage() {
             </Link>
           );
         })}
+        </div>
       </div>
     </main>
   );

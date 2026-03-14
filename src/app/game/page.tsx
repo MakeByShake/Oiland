@@ -2,7 +2,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft, Plus } from "lucide-react";
+import { ArrowLeft, Plus, Loader2 } from "lucide-react";
 import { v4 as uuid } from "uuid";
 import { Player } from "@/data/types";
 import { PlayerCard } from "@/components/game/PlayerCard";
@@ -16,6 +16,7 @@ function createPlayer(): Player {
 
 export default function GameRegisterPage() {
   const [players, setPlayers] = useState<Player[]>([createPlayer(), createPlayer()]);
+  const [loading, setLoading] = useState(false);
   const { setPlayers: storePlayers } = useGameStore();
   const router = useRouter();
 
@@ -32,6 +33,7 @@ export default function GameRegisterPage() {
       toast.error(`${unnamed + 1}-ші ойыншының атын енгізіңіз`);
       return;
     }
+    setLoading(true);
     storePlayers(players);
     router.push("/game/play");
   };
@@ -85,9 +87,15 @@ export default function GameRegisterPage() {
         <div className="max-w-2xl mx-auto">
           <Button
             onClick={handleStart}
-            className="w-full h-14 rounded-2xl bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white font-bold text-lg shadow-lg shadow-purple-900/40 transition-all"
+            disabled={loading}
+            className="w-full h-14 rounded-2xl bg-gradient-to-r from-violet-600 to-purple-600 hover:from-violet-500 hover:to-purple-500 text-white font-bold text-lg shadow-lg shadow-purple-900/40 transition-all disabled:opacity-70"
           >
-            Бастау
+            {loading ? (
+              <span className="flex items-center gap-2">
+                <Loader2 className="w-5 h-5 animate-spin" />
+                Жүктелуде...
+              </span>
+            ) : "Бастау"}
           </Button>
         </div>
       </div>

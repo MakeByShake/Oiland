@@ -2,7 +2,7 @@
 import { use, useState } from "react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { ArrowLeft } from "lucide-react";
+import { ArrowLeft, Loader2 } from "lucide-react";
 import { getSubjectById } from "@/data/subjects";
 import { TopicSelector } from "@/components/flashcards/TopicSelector";
 import { Button } from "@/components/ui/button";
@@ -13,6 +13,7 @@ export default function SubjectTopicsPage({ params }: { params: Promise<{ subjec
   const subject = getSubjectById(subjectId);
   const router = useRouter();
   const [selected, setSelected] = useState<string[]>([]);
+  const [loading, setLoading] = useState(false);
 
   if (!subject) {
     return (
@@ -31,6 +32,7 @@ export default function SubjectTopicsPage({ params }: { params: Promise<{ subjec
       toast.error("Кем дегенде бір тақырып таңдаңыз");
       return;
     }
+    setLoading(true);
     const ids = selected.join(",");
     router.push(`/flashcards/${subjectId}/learn?topics=${ids}`);
   };
@@ -65,13 +67,19 @@ export default function SubjectTopicsPage({ params }: { params: Promise<{ subjec
       </div>
 
       {/* Bottom button */}
-      <div className="fixed bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-gray-950 via-gray-950/90 to-transparent">
+      <div className="fixed bottom-0 left-0 right-0 z-20 p-4 bg-gradient-to-t from-gray-950 via-gray-950/90 to-transparent">
         <div className="max-w-2xl mx-auto">
           <Button
             onClick={handleStart}
-            className="w-full h-14 rounded-2xl bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 text-white font-bold text-lg shadow-lg shadow-emerald-900/40 transition-all"
+            disabled={loading}
+            className="w-full h-14 rounded-2xl bg-gradient-to-r from-emerald-600 to-green-600 hover:from-emerald-500 hover:to-green-500 text-white font-bold text-lg shadow-lg shadow-emerald-900/40 transition-all disabled:opacity-70"
           >
-            Бастау
+            {loading ? (
+              <span className="flex items-center gap-2">
+                <Loader2 className="w-5 h-5 animate-spin" />
+                Жүктелуде...
+              </span>
+            ) : "Бастау"}
           </Button>
         </div>
       </div>
